@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@keyframes ravenick-sheen {
+	0% {
+		transform: translateX(-150%) skewX(-18deg);
+	}
+	100% {
+		transform: translateX(1200%) skewX(-18deg);
+	}
+}
+
+.ravenick-badge {
+	position: fixed;
+	z-index: 9999;
+	left: 1rem;
+	bottom: 1rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.65rem;
+	min-width: 10.5rem;
+	padding: 0.55rem 0.8rem 0.55rem 0.55rem;
+	overflow: hidden;
+	color: #f8fafc;
+	background: rgba(15, 23, 42, 0.94);
+	border: 1px solid rgba(129, 140, 248, 0.5);
+	border-radius: 0.75rem;
+	box-shadow: 0 10px 30px rgba(15, 23, 42, 0.28), 0 0 22px rgba(99, 102, 241, 0.18);
+	text-decoration: none;
+	backdrop-filter: blur(12px);
+}
+
+.ravenick-badge__sheen {
+	position: absolute;
+	inset: -40% auto -40% -25%;
+	width: 1.8rem;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.244), transparent);
+	transform: translateX(-150%) skewX(-18deg);
+	animation: ravenick-sheen 3s linear infinite;
+	pointer-events: none;
+}
+
+.theme-toggle {
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	z-index: 9998;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.55rem 0.75rem;
+	color: #475569;
+	background: rgba(255, 255, 255, 0.9);
+	border: 1px solid #e2e8f0;
+	border-radius: 0.6rem;
+	box-shadow: 0 5px 18px rgba(15, 23, 42, 0.1);
+	font-size: 0.75rem;
+	font-weight: 600;
+	transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.theme-toggle:hover {
+	color: #1e293b;
+	background: #ffffff;
+}
+
+.theme-dark {
+	background: #0f172a;
+}
+
+.theme-dark .bg-slate-50 {
+	background-color: #0f172a;
+}
+
+.theme-dark .bg-white {
+	background-color: #172033;
+}
+
+.theme-dark .border-slate-200,
+.theme-dark .border-slate-300 {
+	border-color: #334155;
+}
+
+.theme-dark .border-slate-100 {
+	border-color: #273449;
+}
+
+.theme-dark .text-slate-800,
+.theme-dark .text-slate-700 {
+	color: #e2e8f0;
+}
+
+.theme-dark .text-slate-600 {
+	color: #cbd5e1;
+}
+
+.theme-dark .text-slate-500,
+.theme-dark .text-slate-400 {
+	color: #94a3b8;
+}
+
+.theme-dark .hover\:bg-slate-50:hover {
+	background-color: #202c42;
+}
+
+.theme-dark .bg-slate-100 {
+	background-color: #243149;
+}
+
+.theme-dark .bg-blue-50 {
+	background-color: #172554;
+}
+
+.theme-dark .text-blue-700 {
+	color: #93c5fd;
+}
+
+.theme-dark .theme-toggle {
+	color: #cbd5e1;
+	background: rgba(30, 41, 59, 0.92);
+	border-color: #475569;
+}
+
+.theme-dark .theme-toggle:hover {
+	color: #f8fafc;
+	background: #26354d;
+}
+
+@media (max-width: 480px) {
+	.theme-toggle {
+		top: 0.75rem;
+		right: 0.75rem;
+	}
+
+	.theme-toggle span {
+		display: none;
+	}
+}
+
+.ravenick-badge__logo {
+	position: relative;
+	width: 2.15rem;
+	height: 2.15rem;
+	object-fit: contain;
+	flex: 0 0 auto;
+}
+
+.ravenick-badge__copy {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	line-height: 1.1;
+}
+
+.ravenick-badge__built {
+	color: #94a3b8;
+	font-size: 0.6rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.ravenick-badge__name {
+	margin-top: 0.18rem;
+	color: #e0e7ff;
+	font-size: 0.82rem;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+
+@media (max-width: 480px) {
+	.ravenick-badge {
+		left: 0.75rem;
+		bottom: 0.75rem;
+	}
+}
