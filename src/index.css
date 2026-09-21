@@ -131,7 +131,7 @@
 	background: #26354d;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
 	.theme-toggle {
 		top: 0.75rem;
 		right: 0.75rem;
@@ -139,6 +139,10 @@
 
 	.theme-toggle span {
 		display: none;
+	}
+
+	main {
+		padding-top: 3rem;
 	}
 }
 

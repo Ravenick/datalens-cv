@@ -11,7 +11,7 @@ import { ColumnStats } from '@/components/ColumnStats';
 import { DataQuality } from '@/components/DataQuality';
 import { DataTable } from '@/components/DataTable';
 import { ChartBuilder } from '@/components/ChartBuilder';
-import { BarChart3, Moon, Sun } from 'lucide-react';
+import { BarChart3, Moon, Sun, Menu } from 'lucide-react';
 
 function App() {
   const [dataset, setDataset] = useState<Dataset | null>(null);
@@ -19,6 +19,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('datalens-theme') === 'dark');
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   useEffect(() => {
     localStorage.setItem('datalens-theme', darkMode ? 'dark' : 'light');
@@ -87,16 +88,28 @@ function App() {
         {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         <span>{darkMode ? 'Light' : 'Dark'}</span>
       </button>
+
+      {sidebarOpen && (
+        <button
+          type="button"
+          aria-label="Close sidebar"
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 z-30 bg-slate-900/20 backdrop-blur-sm md:hidden"
+        />
+      )}
+
       <Sidebar
         dataset={dataset}
         currentView={view}
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarOpen((current) => !current)}
         onViewChange={setView}
         onFile={handleFile}
         onSwitchDataset={handleSwitchDataset}
         onClearDataset={handleClear}
       />
 
-      <main className="flex-1 min-w-0 overflow-x-hidden">
+      <main className={`flex-1 min-w-0 overflow-x-hidden transition-all duration-300 ${sidebarOpen ? 'md:ml-0' : ''}`}>
         {!dataset ? (
           <div className="min-h-screen flex items-center justify-center px-6 py-12">
             <div className="max-w-2xl w-full">

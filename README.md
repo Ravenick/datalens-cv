@@ -7,7 +7,8 @@ A browser-based CSV analytics workspace built by Nelson Emmanuel | Ravenick. Dat
 
 ## Preview
 
-![Ravenick logo](public/oc-logo-no-bg.png)
+![mobile](./public/mobile.png)
+![desktop](./public/desktop.png)
 
 ## Features
 
@@ -78,8 +79,8 @@ vite.config.ts
 ## Run Locally
 
 ```bash
-git clone https://github.com/Ravenick/datalens.git
-cd datalens
+git clone https://github.com/Ravenick/datalens-cv.git
+cd datalens-cv
 npm install
 npm run dev
 ```

@@ -1,5 +1,5 @@
 import type { Dataset } from '@/lib/types';
-import { BarChart3, LayoutDashboard, Table2, ShieldCheck, TrendingUp, Upload, Clock, X, Trash2 } from 'lucide-react';
+import { BarChart3, LayoutDashboard, Table2, ShieldCheck, TrendingUp, Upload, Clock, X, Trash2, Menu } from 'lucide-react';
 import { FileUpload } from './FileUpload';
 import { listSavedDatasets, deleteDataset, type SavedDatasetMeta } from '@/lib/storage';
 import { useState, useEffect } from 'react';
@@ -10,6 +10,8 @@ export type ViewId = 'overview' | 'columns' | 'quality' | 'charts' | 'table';
 interface Props {
   dataset: Dataset | null;
   currentView: ViewId;
+  isOpen: boolean;
+  onToggle: () => void;
   onViewChange: (v: ViewId) => void;
   onFile: (file: File, text: string) => void;
   onSwitchDataset: (id: string) => void;
@@ -24,7 +26,7 @@ const NAV_ITEMS: { id: ViewId; label: string; icon: typeof LayoutDashboard }[] =
   { id: 'table', label: 'Data Table', icon: Table2 },
 ];
 
-export function Sidebar({ dataset, currentView, onViewChange, onFile, onSwitchDataset, onClearDataset }: Props) {
+export function Sidebar({ dataset, currentView, isOpen, onToggle, onViewChange, onFile, onSwitchDataset, onClearDataset }: Props) {
   const [saved, setSaved] = useState<SavedDatasetMeta[]>([]);
 
   useEffect(() => {
@@ -37,17 +39,47 @@ export function Sidebar({ dataset, currentView, onViewChange, onFile, onSwitchDa
   };
 
   return (
-    <aside className="w-72 shrink-0 h-screen sticky top-0 bg-white border-r border-slate-200 flex flex-col overflow-hidden">
+    <>
+      {!isOpen && (
+        <button
+          type="button"
+          onClick={onToggle}
+          className="fixed left-4 top-4 z-50 flex items-center gap-2 rounded-lg border border-slate-200 bg-white/90 px-3 py-2 text-sm font-medium text-slate-700 shadow-lg backdrop-blur-md md:hidden"
+          aria-label="Open sidebar"
+        >
+          <Menu className="h-4 w-4" />
+          Menu
+        </button>
+      )}
+
+      <aside
+        className={[
+          'h-screen bg-white border-r border-slate-200 flex flex-col overflow-hidden transition-transform duration-300 ease-out z-40',
+          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+          'fixed inset-y-0 left-0 w-72 md:static md:w-72 md:translate-x-0',
+          !isOpen && 'md:!w-0 md:!overflow-hidden md:!border-r-0',
+        ].join(' ')}
+      >
       {/* Logo */}
       <div className="px-5 py-5 border-b border-slate-100">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center shadow-sm">
-            <BarChart3 className="h-5 w-5 text-white" />
+        <div className="flex items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center shadow-sm flex-shrink-0">
+              <BarChart3 className="h-5 w-5 text-white" />
+            </div>
+            <div className="min-w-0">
+              <h1 className="text-base font-bold text-slate-800 leading-tight">DataLens</h1>
+              <p className="text-[10px] text-slate-400 uppercase tracking-wider">CSV Analytics</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-base font-bold text-slate-800 leading-tight">DataLens</h1>
-            <p className="text-[10px] text-slate-400 uppercase tracking-wider">CSV Analytics</p>
-          </div>
+          <button
+            type="button"
+            onClick={onToggle}
+            className="rounded-md p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-700 md:hidden"
+            aria-label="Close sidebar"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
       </div>
 
@@ -140,5 +172,6 @@ export function Sidebar({ dataset, currentView, onViewChange, onFile, onSwitchDa
         <p className="text-[10px] text-slate-400 text-center">All data processed locally</p>
       </div>
     </aside>
+    </>
   );
 }
